@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Environments
+.env
+.venv/
+env/
+venv/
+
+# API keys and local secrets
+*.key
+secrets.json
+.env*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large/private image data and outputs
+*.svs
+*.ndpi
+*.vsi
+*.ome.tif
+*.ome.tiff
+*.tif
+*.tiff
+*.pt
+*.pth
+*.ckpt
+*.npz
+runs/
+outputs/
+heatmaps/
+tilemaps/
+
+# Allow README placeholders in examples/data, but not actual data by default
+!examples/data/README.md

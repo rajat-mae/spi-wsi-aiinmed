@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spi-wsi-aiinmed"
+version = "0.3.0"
+description = "Spatial pathway inference and stochastic LLM robustness tools for WSI pathology workflows"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Rajat Vashistha"}]
+dependencies = [
+  "numpy>=1.23",
+  "pandas>=1.5",
+  "scipy>=1.9",
+  "scikit-learn>=1.2",
+  "pillow>=9.0",
+  "matplotlib>=3.6",
+  "tqdm>=4.64",
+  "openpyxl>=3.1",
+  "xlsxwriter>=3.1",
+  "anthropic>=0.25",
+  "biopython>=1.80"
+]
+
+[project.optional-dependencies]
+notebooks = ["jupyter", "ipykernel", "ipywidgets"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+spi-infer-spatial-pathways = "spi_wsi_aiinmed.spatial_inference:main_cli"
+spi-prompt-robustness = "spi_wsi_aiinmed.prompt_robustness:main_cli"
+spi-test-specificity = "spi_wsi_aiinmed.specificity_testing:main_cli"
+spi-train-conch = "spi_wsi_aiinmed.train_conch_patch_hallmark:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

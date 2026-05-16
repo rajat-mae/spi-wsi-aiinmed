@@ -1,0 +1,14 @@
+numpy>=1.23
+pandas>=1.5
+scipy>=1.9
+scikit-learn>=1.2
+pillow>=9.0
+matplotlib>=3.6
+tqdm>=4.64
+openpyxl>=3.1
+xlsxwriter>=3.1
+anthropic>=0.25
+biopython>=1.80
+jupyter
+ipykernel
+ipywidgets
