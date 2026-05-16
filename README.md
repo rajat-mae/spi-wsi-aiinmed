@@ -11,27 +11,16 @@ The repository is designed for notebook-first computational pathology experiment
    - Uses CONCH image/text embeddings to score image tiles against generated prompts.
    - Saves tile maps, pathway heatmaps, prompt tables, cosine tables, and spatial pathway score tables.
 
-2. **Explicit stochastic LLM robustness testing**
-   - Runs the same input through the LLM `N` independent times.
-   - Saves each run separately as `run_000`, `run_001`, `run_002`, etc.
-   - Quantifies run-to-run variability using:
-     - spatial Pearson correlation,
-     - spatial Spearman correlation,
-     - selected-tile Jaccard overlap,
-     - selected-tile Dice overlap,
-     - prompt-token overlap,
-     - selection-frequency maps.
-
-3. **Human/pathology feedback after iteration 1**
+2. **Human/pathology feedback after iteration 1**
    - If `iterations > 1`, the package can ask for pathology feedback after each iteration.
    - The feedback is injected into the next prompt-generation iteration.
    - This keeps the human-in-the-loop structure while preserving reproducibility through saved per-run outputs.
 
-4. **CONCH fine-tuning**
+3. **CONCH fine-tuning**
    - Includes an adapter/probe training workflow for CONCH patch images and hallmark pathway labels.
 
-5. **Prompt specificity testing**
-   - Tests whether pathway prompts behave specifically for their intended pathway compared with other pathway prompts on the same tile.
+4. **Prompt and LLM specificity  testing**
+   - Tests whether pathway prompts behave specifically for their intended pathway compared with other pathway prompts on the same tile. In addition, evaluate whether stochastic LLM prompt generation produced reproducible spatial pathway inference maps.
 
 ## Repository layout
 
@@ -80,7 +69,7 @@ git clone https://github.com/mahmoodlab/CONCH.git
 pip install -e CONCH
 ```
 
-## API keys: Option A only
+## API keys: Required before running
 
 The example workflow asks the user for keys at runtime. Keys are not stored in notebooks, scripts, JSON files, or the repository.
 
@@ -251,67 +240,8 @@ runs/spatial_inference_demo/
     value_std_hist.png
 ```
 
-## Interpreting robustness outputs
 
-Use:
-
-```text
-robustness/summary_replicate_metrics.csv
-```
-
-Key columns:
-
-```text
-spatial_pearson_r_mean       stability of spatial score maps across LLM runs
-spatial_spearman_rho_mean    stability of tile ranking across LLM runs
-selected_jaccard_mean        overlap of selected top pathway tiles
-selected_dice_mean           Dice overlap of selected top pathway tiles
-mean_row_prompt_token_jaccard_mean   local prompt wording overlap
-corpus_prompt_token_jaccard_mean     overall wording overlap
-```
-
-Use:
-
-```text
-robustness/prompt_consistency_map.csv
-```
-
-to identify unstable sample/pathway/tile combinations using:
-
-```text
-selection_frequency
-value_std
-value_cv
-n_unique_prompt_texts
-```
-
-## Run specificity testing
-
-After inference, run:
-
-```bash
-spi-test-specificity \
-  --cosine_csv runs/spatial_inference_demo/run_000/tile_prompt_cosine.csv \
-  --out_dir runs/spatial_inference_demo/run_000/specificity
-```
-
-Outputs:
-
-```text
-specificity_by_tile_pathway.csv
-specificity_summary.csv
-specificity_manifest.json
-```
-
-Interpretation:
-
-```text
-specificity_margin_mean > 0     intended pathway prompts score higher than decoy pathway prompts
-mean_rank_percentile near 1     intended pathway ranks near the top on the tile
-frac_top_rank high              pathway prompt is most specific for many tiles
-```
-
-## CONCH fine-tuning
+## CONCH adpater fine-tuning
 
 The fine-tuning command trains:
 
