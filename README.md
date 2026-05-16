@@ -1,7 +1,5 @@
 # SPI-WSI-AIinMED
 
-Reusable tools for H&E whole-slide image pathway-prompt inference, stochastic LLM robustness analysis, CONCH adapter/probe fine-tuning, and prompt specificity testing.
-
 The repository is designed for notebook-first computational pathology experiments where pathway scores, whole-slide/patch images, and LLM-generated pathology prompts are used to spatially infer pathway-associated regions on H&E images.
 
 ## What this package does
@@ -359,21 +357,8 @@ A minimal notebook using the runtime key prompt is also provided:
 examples/inference/notebook_spatial_inference_option_a.ipynb
 ```
 
-## Safety and privacy
-
-Do not commit:
-
-```text
-API keys
-patient data
-private WSI files
-large TIFF/SVS/OME-TIFF data
-model checkpoints
-run outputs
-```
-
 The `.gitignore` excludes common private and large-output file types by default.
 
 ## Citation
 
-If this package supports a manuscript, cite the repository and the underlying model/tool dependencies used in your experiment, including CONCH and the LLM provider.
+If you use this repo, cite our paper, cite the repository and the underlying model/tool dependencies used in your experiment, including CONCH and the LLM provider.
